@@ -31,6 +31,7 @@ func InitToDoList(filename string) *ToDoList {
 		if err != nil {
 			panic(err)
 		}
+		tdl.WriteToCSV()
 	}
 
 	return tdl
@@ -38,6 +39,11 @@ func InitToDoList(filename string) *ToDoList {
 
 // Convert ToDoList into slice of strings slices for writing to CSV
 func (tdl *ToDoList) unpackToDoList() (*[][]string, error) {
+
+	if len(tdl.ToDos) == 0 {
+		return nil, nil
+	}
+
 	output := make([][]string, tdl.Count)
 
 	for i, v := range tdl.ToDos {
@@ -69,7 +75,10 @@ func (tdl *ToDoList) WriteToCSV() error {
 
 	writer.Write([]string{"Id", "Item", "IsComplete", "CreatedDate"})
 
-	writer.WriteAll(*stringTDL)
+	if stringTDL != nil {
+		writer.WriteAll(*stringTDL)
+	}
+	writer.Flush()
 	return nil
 }
 
@@ -97,6 +106,13 @@ func (tdl *ToDoList) ReadFromCSV() error {
 
 	// fmt.Printf("Records: %v\n", records)
 	// fmt.Printf("Rows in CSV: %v\n", len(records))
+
+	if len(records) < 1 {
+		tdl.ToDos = nil
+		tdl.Count = 0
+		tdl.NextId = 1
+		return nil
+	}
 
 	start := 1 // Exclude header
 
