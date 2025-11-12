@@ -224,8 +224,10 @@ func (tdl *ToDoList) DisplayTodoList(filter *ToDoFilter) {
 	// const CheckSymbol string = "\u2713"
 	const BoldCheckSymbol string = "\u2714"
 
-	fmt.Printf("%-4s %-6s %-45s %-15s\n", "Id", "Done", "Item", "Created")
-	fmt.Println(strings.Repeat("-", 90))
+	w, colWidths := CalculateDisplayColumns(3, 6, 70, 15)
+
+	fmt.Printf("%-*s %-*s %-*s %-*s\n", colWidths[0], "Id", colWidths[1], "Done", colWidths[2], "Item", colWidths[3], "Created")
+	fmt.Println(strings.Repeat("-", w))
 
 	for _, v := range *filteredToDos {
 		cb := "[   ]"
@@ -233,10 +235,14 @@ func (tdl *ToDoList) DisplayTodoList(filter *ToDoFilter) {
 			cb = fmt.Sprintf("[ %s ]", BoldCheckSymbol)
 		}
 
-		fmt.Printf("%-4d %-6s %-45s %-15s\n",
+		fmt.Printf("%-*d %-*s %-*s %-*s\n",
+			colWidths[0],
 			v.Id,
+			colWidths[1],
 			cb,
+			colWidths[2],
 			v.Item,
+			colWidths[3],
 			v.CreatedDate.Format(time.DateOnly))
 	}
 }
