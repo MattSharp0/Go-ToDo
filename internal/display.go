@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"todo-list-cli/internal/terminal"
+	"todo/internal/terminal"
 )
 
 func CalculateDisplayColumns(colPercentages ...int) (int, []int) {

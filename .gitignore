@@ -5,6 +5,7 @@
 *.so
 *.dylib
 todo-list-cli
+todo
 
 # Test binary, built with `go test -c`
 *.test
@@ -45,5 +46,5 @@ Desktop.ini
 *~
 
 # Project specific - user data
-ToDos.csv
+*.csv
 

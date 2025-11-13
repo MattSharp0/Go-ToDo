@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"todo-list-cli/internal"
+	"todo/internal"
 
 	"github.com/spf13/cobra"
 )

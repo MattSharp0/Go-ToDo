@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"todo-list-cli/cmd"
-	"todo-list-cli/internal"
+	"todo/cmd"
+	"todo/internal"
 )
 
 func main() {
